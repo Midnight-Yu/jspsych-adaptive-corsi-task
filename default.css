@@ -1,11 +1,11 @@
-/*定义所有文字颜色为白色*/
+/*定义所有文字颜色为黑色*/
 * {
-    color:white; 
+    color:black ; 
 }
 
-/*定义背景颜色为黑，隐藏鼠标*/
+/*定义背景颜色为白，隐藏鼠标*/
 body {
-    background-color: black;
+    background-color: white ;
     /*cursor: none;*/
 }
 
