@@ -1,13 +1,19 @@
-var test_block_arrangement = [
-    {x:50, y:10},
-    {x:50, y:20},
-    {x:50, y:30},
-    {x:50, y:40},
-    {x:50, y:50},
-    {x:50, y:60},
+// 全局参数初始化
+//方块布局
+var test_block_arrangement = [ 
+    {x:30, y:30}, {x:40, y:30}, {x:50, y:30}, {x:60, y:30}, {x:70, y:30},
+    {x:30, y:40}, {x:40, y:40}, {x:50, y:40}, {x:60, y:40}, {x:70, y:40},
+    {x:30, y:50}, {x:40, y:50}, {x:50, y:50}, {x:60, y:50}, {x:70, y:50},
+    {x:30, y:60}, {x:40, y:60}, {x:50, y:60}, {x:60, y:60}, {x:70, y:60},
+    {x:30, y:70}, {x:40, y:70}, {x:50, y:70}, {x:60, y:70}, {x:70, y:70},
 ];
 
-var block_size = 9;
+// 方块大小
+var block_size = 9.5; 
+
+// 测试区域长宽（有可能做针对屏幕的修改吗？（或许并不需要））
+var display_width = "800px"; 
+var display_height = "800px"; 
 
 let jsPsych = initJsPsych({
     on_finish: function () {
@@ -46,6 +52,8 @@ let show_sequence = {
     type: jsPsychCorsiBlocks,
     blocks: test_block_arrangement,
     block_size : block_size,
+    display_height : display_height,
+    display_width : display_width,
     sequence: [3, 1, 2, 4, 5],
     mode: 'display'
 }
@@ -54,6 +62,8 @@ let response = {
     type: jsPsychCorsiBlocks,
     blocks: test_block_arrangement,
     block_size : block_size,
+    display_height : display_height,
+    display_width : display_width,
     sequence: [3, 1, 2, 4, 5],
     mode: 'input'
 }
