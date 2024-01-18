@@ -1,4 +1,11 @@
 /* 全局参数初始化 */
+
+// 方块大小 //这个数字一般不做变动？
+var block_size = 9.5;
+
+// 外部储存一个用来传sequence的全局变量（这做法是不是不太对啊（
+local_sequence = [];
+
 // 方块布局
 var block_arrangement_5 = [
     { x: 30, y: 30 }, { x: 40, y: 30 }, { x: 50, y: 30 }, { x: 60, y: 30 }, { x: 70, y: 30 },
@@ -45,17 +52,11 @@ var block_id_list_7 = generateSequence(49);
 // console.log(block_id_list_6);
 // console.log(block_id_list_7);
 
-// 方块大小
-var block_size = 9.5;
-
 // 测试区域长宽（有可能做针对屏幕的修改吗？（或许并不需要））
 var display_width = "800px";
 var display_height = "800px";
 
-// 测试用，外部储存一个用来传sequence的全局变量（万一成了呢）（这做法不太对啊）
-local_sequence = [];
-
-// 随机抽取算法
+// 随机抽取算法，用来在索引列表中抽取数个方块作为本轮刺激
 function getRandomElements(array, x) {
     const newArray = array
     const shuffledArray = newArray.sort(() => Math.random() - 0.5);
@@ -104,8 +105,10 @@ let example_timeline = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-                randomized_array = getRandomElements(block_id_list_7, 3);
-                local_sequence = randomized_array;
+                let randomized_array = getRandomElements(block_id_list_7, 3);
+                local_sequence = [...randomized_array];
+                    console.log(local_sequence);
+                    console.log(randomized_array);
                 return randomized_array;
             },
             mode: 'display'
@@ -118,8 +121,10 @@ let example_timeline = {
             display_width: display_width,
             sequence: function () {
              // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
-                original_list = local_sequence;
-                reversed_list = original_list.reverse();
+                let original_list = [...local_sequence];
+                let reversed_list = original_list.reverse();
+                    console.log(original_list);
+                    console.log(reversed_list);
                 return reversed_list;
             }, 
             mode: 'input'
