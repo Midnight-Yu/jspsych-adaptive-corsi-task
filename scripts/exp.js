@@ -77,7 +77,7 @@ let jsPsych = initJsPsych({
     }
 });
 
-// 注册一个listener，用于实验强制退出
+// 注册一个listener，用于实验强制退出 //不太对，整个实验没有开放keyboard response，好像读不到按ESC的事件
 function endExperiment(e) {
     if (e.key === 'Escape') {
         jsPsych.endExperiment('实验已终止');
