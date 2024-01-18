@@ -107,8 +107,6 @@ let example_timeline = {
             sequence: function () {
                 let randomized_array = getRandomElements(block_id_list_7, 3);
                 local_sequence = [...randomized_array];
-                    console.log(local_sequence);
-                    console.log(randomized_array);
                 return randomized_array;
             },
             mode: 'display'
@@ -123,8 +121,6 @@ let example_timeline = {
              // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
                 let reversed_list = original_list.reverse();
-                    console.log(original_list);
-                    console.log(reversed_list);
                 return reversed_list;
             }, 
             mode: 'input'
