@@ -4,7 +4,7 @@
 var block_size = 9.5;
 
 // 外部储存一个用来传sequence的全局变量（这做法是不是不太对啊（
-local_sequence = [];
+var local_sequence = [];
 
 // 方块布局
 var block_arrangement_5 = [
@@ -63,14 +63,6 @@ function getRandomElements(array, x) {
     return shuffledArray.slice(0, x);
 };
 
-// 注册一个listener，用于实验强制退出
-function endExperiment(e) {
-    if (e.key === 'Escape') {
-        jsPsych.endExperiment('实验已终止');
-        document.removeEventListener("keydown", endExperiment);
-    }
-};
-
 /* 初始化jsPsych，注意添加的实验强制退出 */
 let jsPsych = initJsPsych({
     on_finish: function () {
@@ -84,6 +76,14 @@ let jsPsych = initJsPsych({
             .localSave('csv', 'data.csv')
     }
 });
+
+// 注册一个listener，用于实验强制退出
+function endExperiment(e) {
+    if (e.key === 'Escape') {
+        jsPsych.endExperiment('实验已终止');
+        document.removeEventListener("keydown", endExperiment);
+    }
+};
 
 let instruction = {
     type: jsPsychHtmlKeyboardResponse,
