@@ -131,10 +131,15 @@ let timeline_5 = {
             mode: 'input'
         }
     ],
-    sample: {
-        type: 'fixed-repetitions',
-        size: 3
-    }
+    conditional_function : function() {
+        let local_difficulty = difficulty;
+        if (local_difficulty <= 11) {
+            return true;
+        }
+        else {
+            return false;
+        };
+    },
 };
 
 // 6盘面的timeline，作为子时间线运行
@@ -168,10 +173,15 @@ let timeline_6 = {
             mode: 'input'
         }
     ],
-    sample: {
-        type: 'fixed-repetitions',
-        size: 3
-    }
+    conditional_function : function() {
+        let local_difficulty = difficulty;
+        if (local_difficulty >= 12 && local_difficulty <= 17) {
+            return true;
+        }
+        else {
+            return false;
+        };
+    },
 };
 
 // 7盘面的timeline，作为子时间线运行
@@ -205,17 +215,22 @@ let timeline_7 = {
             mode: 'input'
         }
     ],
-    sample: {
-        type: 'fixed-repetitions',
-        size: 3
-    }
+    conditional_function : function() {
+        let local_difficulty = difficulty;
+        if (local_difficulty >= 18) {
+            return true;
+        }
+        else {
+            return false;
+        };
+    },
 };
 
-// timeline_node，用来控制运行哪一个timeline
+// timeline_control，用来控制运行哪一个timeline
 // 先写测试版，暂时不控制difficulty这个变量的变化，只做根据不同范围启动不同的timeline
-let timeline_node = {
-
-}
+let timeline_control = {
+    //按顺序遍历三个timeline，在每个timeline里单独用conditional_function控制
+};
 
 // 结束语
 let ending = {
