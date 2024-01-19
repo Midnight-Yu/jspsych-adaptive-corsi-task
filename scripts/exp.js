@@ -48,13 +48,16 @@ var block_id_list_5 = generateSequence(25);
 var block_id_list_6 = generateSequence(36);
 var block_id_list_7 = generateSequence(49);
 
-// console.log(block_id_list_5);
-// console.log(block_id_list_6);
-// console.log(block_id_list_7);
-
 // 测试区域长宽（有可能做针对屏幕的修改吗？（或许并不需要））
 var display_width = "800px";
 var display_height = "800px";
+
+// 难度变量，等于本次trial中的方块个数，在实验中进行调整
+var difficulty = 2; //初始值为2
+// 当刺激方块个数在 2~11 之间时，盘面为5*5，最低不小于2
+// 当刺激方块个数在 12~17 之间时，盘面为6*6
+// 当刺激方块个数在 18~24 之间时，盘面为7*7，最大不超过24
+
 
 // 随机抽取算法，用来在索引列表中抽取数个方块作为本轮刺激
 function getRandomElements(array, x) {
@@ -96,7 +99,79 @@ let instruction = {
     post_trial_gap: 500
 };
 
-let example_timeline = {
+let timeline_5 = {
+    timeline: [
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_5,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                let randomized_array = getRandomElements(block_id_list_5, 3);
+                local_sequence = [...randomized_array];
+                return randomized_array;
+            },
+            mode: 'display'
+        },
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_5,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+             // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                let original_list = [...local_sequence];
+                let reversed_list = original_list.reverse();
+                return reversed_list;
+            }, 
+            mode: 'input'
+        }
+    ],
+    sample: {
+        type: 'fixed-repetitions',
+        size: 3
+    }
+};
+
+let timeline_6 = {
+    timeline: [
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_6,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                let randomized_array = getRandomElements(block_id_list_6, 3);
+                local_sequence = [...randomized_array];
+                return randomized_array;
+            },
+            mode: 'display'
+        },
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_6,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+             // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                let original_list = [...local_sequence];
+                let reversed_list = original_list.reverse();
+                return reversed_list;
+            }, 
+            mode: 'input'
+        }
+    ],
+    sample: {
+        type: 'fixed-repetitions',
+        size: 3
+    }
+};
+
+let timeline_7 = {
     timeline: [
         {
             type: jsPsychCorsiBlocks,
@@ -142,6 +217,6 @@ let ending = {
 
 /* jsPsych 运行*/
 jsPsych.run([
-    instruction, example_timeline, ending
+    instruction, timeline_7, ending
 ]);
 
