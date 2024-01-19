@@ -3,8 +3,9 @@
 // 方块大小 //这个数字一般不做变动？
 var block_size = 9.5;
 
-// 外部储存一个用来传sequence的全局变量（这做法是不是不太对啊（
+// 外部储存数据用的变量，在全局初始化
 var local_sequence = [];
+var error_times = 0;
 
 // 方块布局
 var block_arrangement_5 = [
@@ -48,13 +49,16 @@ var block_id_list_5 = generateSequence(25);
 var block_id_list_6 = generateSequence(36);
 var block_id_list_7 = generateSequence(49);
 
-// console.log(block_id_list_5);
-// console.log(block_id_list_6);
-// console.log(block_id_list_7);
-
 // 测试区域长宽（有可能做针对屏幕的修改吗？（或许并不需要））
 var display_width = "800px";
 var display_height = "800px";
+
+// 难度变量，等于本次trial中的方块个数，在实验中进行调整
+var difficulty = 2; //初始值为2
+// 当刺激方块个数在 2~11 之间时，盘面为5*5，最低不小于2
+// 当刺激方块个数在 12~17 之间时，盘面为6*6
+// 当刺激方块个数在 18~24 之间时，盘面为7*7，最大不超过24
+
 
 // 随机抽取算法，用来在索引列表中抽取数个方块作为本轮刺激
 function getRandomElements(array, x) {
@@ -68,12 +72,12 @@ let jsPsych = initJsPsych({
     on_finish: function () {
         jsPsych.data
             .get()
-            .localSave('csv', 'data.csv')
+            .localSave('csv', 'data-'.concat(Date(0).toLocaleString('zh-CN')).concat('.csv'))
     },
     on_close: function () {
         jsPsych.data
             .get()
-            .localSave('csv', 'data.csv')
+            .localSave('csv', 'data-'.concat(Date(0).toLocaleString('zh-CN')).concat('.csv'))
     }
 });
 
@@ -85,6 +89,7 @@ function endExperiment(e) {
     }
 };
 
+// 指导语
 let instruction = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
@@ -96,7 +101,92 @@ let instruction = {
     post_trial_gap: 500
 };
 
-let example_timeline = {
+// 5盘面的timeline，作为子时间线运行
+let timeline_5 = {
+    timeline: [
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_5,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                let randomized_array = getRandomElements(block_id_list_5, difficulty);
+                local_sequence = [...randomized_array];
+                return randomized_array;
+            },
+            mode: 'display'
+        },
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_5,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                let original_list = [...local_sequence];
+                let reversed_list = original_list.reverse();
+                return reversed_list;
+            },
+            mode: 'input'
+        }
+    ],
+    conditional_function: function () {
+        let local_difficulty = difficulty;
+        if (local_difficulty <= 11) {
+            return true;
+        }
+        else {
+            return false;
+        };
+    },
+};
+
+// 6盘面的timeline，作为子时间线运行
+let timeline_6 = {
+    timeline: [
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_6,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                let randomized_array = getRandomElements(block_id_list_6, difficulty);
+                local_sequence = [...randomized_array];
+                return randomized_array;
+            },
+            mode: 'display'
+        },
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_6,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                let original_list = [...local_sequence];
+                let reversed_list = original_list.reverse();
+                return reversed_list;
+            },
+            mode: 'input'
+        }
+    ],
+    conditional_function: function () {
+        let local_difficulty = difficulty;
+        if (local_difficulty >= 12 && local_difficulty <= 17) {
+            return true;
+        }
+        else {
+            return false;
+        };
+    },
+};
+
+// 7盘面的timeline，作为子时间线运行
+let timeline_7 = {
     timeline: [
         {
             type: jsPsychCorsiBlocks,
@@ -105,7 +195,7 @@ let example_timeline = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-                let randomized_array = getRandomElements(block_id_list_7, 3);
+                let randomized_array = getRandomElements(block_id_list_7, difficulty);
                 local_sequence = [...randomized_array];
                 return randomized_array;
             },
@@ -118,20 +208,51 @@ let example_timeline = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-             // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
                 let reversed_list = original_list.reverse();
                 return reversed_list;
-            }, 
+            },
             mode: 'input'
         }
     ],
-    sample: {
-        type: 'fixed-repetitions',
-        size: 3
+    conditional_function: function () {
+        let local_difficulty = difficulty;
+        if (local_difficulty >= 18) {
+            return true;
+        }
+        else {
+            return false;
+        };
+    },
+};
+
+// timeline_control，用来控制运行哪一个timeline
+let timeline_control = {
+    timeline: [timeline_5, timeline_6, timeline_7],   //按顺序遍历三个timeline，在每个timeline里单独用conditional_function控制
+    loop_function: function () {
+        let last_trial_correct = jsPsych.data.getLastTrialData().trials[0].correct;
+        if (last_trial_correct == true) {
+            difficulty++;
+            error_times = 0;
+        }
+        else {
+            error_times++;
+        };
+        if (error_times > 1) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    },
+    on_finish: function (data) {
+        data.difficulty = difficulty;
+        data.error_times = error_times;
     }
 };
 
+// 结束语
 let ending = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
@@ -142,6 +263,6 @@ let ending = {
 
 /* jsPsych 运行*/
 jsPsych.run([
-    instruction, example_timeline, ending
+    instruction, timeline_control, ending
 ]);
 
