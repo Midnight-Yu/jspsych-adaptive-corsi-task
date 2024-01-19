@@ -88,6 +88,7 @@ function endExperiment(e) {
     }
 };
 
+// 指导语
 let instruction = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
@@ -99,6 +100,7 @@ let instruction = {
     post_trial_gap: 500
 };
 
+// 5盘面的timeline，作为子时间线运行
 let timeline_5 = {
     timeline: [
         {
@@ -108,7 +110,7 @@ let timeline_5 = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-                let randomized_array = getRandomElements(block_id_list_5, 3);
+                let randomized_array = getRandomElements(block_id_list_5, difficulty);
                 local_sequence = [...randomized_array];
                 return randomized_array;
             },
@@ -135,6 +137,7 @@ let timeline_5 = {
     }
 };
 
+// 6盘面的timeline，作为子时间线运行
 let timeline_6 = {
     timeline: [
         {
@@ -144,7 +147,7 @@ let timeline_6 = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-                let randomized_array = getRandomElements(block_id_list_6, 3);
+                let randomized_array = getRandomElements(block_id_list_6, difficulty);
                 local_sequence = [...randomized_array];
                 return randomized_array;
             },
@@ -171,6 +174,7 @@ let timeline_6 = {
     }
 };
 
+// 7盘面的timeline，作为子时间线运行
 let timeline_7 = {
     timeline: [
         {
@@ -180,7 +184,7 @@ let timeline_7 = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-                let randomized_array = getRandomElements(block_id_list_7, 3);
+                let randomized_array = getRandomElements(block_id_list_7, difficulty);
                 local_sequence = [...randomized_array];
                 return randomized_array;
             },
@@ -207,6 +211,13 @@ let timeline_7 = {
     }
 };
 
+// timeline_node，用来控制运行哪一个timeline
+// 先写测试版，暂时不控制difficulty这个变量的变化，只做根据不同范围启动不同的timeline
+let timeline_node = {
+
+}
+
+// 结束语
 let ending = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
@@ -217,6 +228,6 @@ let ending = {
 
 /* jsPsych 运行*/
 jsPsych.run([
-    instruction, timeline_7, ending
+    instruction, timeline_node, ending
 ]);
 
