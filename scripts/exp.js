@@ -228,10 +228,8 @@ let timeline_7 = {
 };
 
 // timeline_control，用来控制运行哪一个timeline
-// 先写测试版，暂时不控制difficulty这个变量的变化，只做根据不同范围启动不同的timeline
 let timeline_control = {
-    //按顺序遍历三个timeline，在每个timeline里单独用conditional_function控制
-    timeline: [timeline_5, timeline_6, timeline_7],
+    timeline: [timeline_5, timeline_6, timeline_7],   //按顺序遍历三个timeline，在每个timeline里单独用conditional_function控制
     loop_function: function () {
         let last_trial_correct = jsPsych.data.getLastTrialData().trials[0].correct;
         if (last_trial_correct == true) {
