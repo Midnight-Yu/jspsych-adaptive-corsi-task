@@ -123,15 +123,15 @@ let timeline_5 = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-             // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
                 let reversed_list = original_list.reverse();
                 return reversed_list;
-            }, 
+            },
             mode: 'input'
         }
     ],
-    conditional_function : function() {
+    conditional_function: function () {
         let local_difficulty = difficulty;
         if (local_difficulty <= 11) {
             return true;
@@ -165,15 +165,15 @@ let timeline_6 = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-             // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
                 let reversed_list = original_list.reverse();
                 return reversed_list;
-            }, 
+            },
             mode: 'input'
         }
     ],
-    conditional_function : function() {
+    conditional_function: function () {
         let local_difficulty = difficulty;
         if (local_difficulty >= 12 && local_difficulty <= 17) {
             return true;
@@ -207,15 +207,15 @@ let timeline_7 = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-             // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
                 let reversed_list = original_list.reverse();
                 return reversed_list;
-            }, 
+            },
             mode: 'input'
         }
     ],
-    conditional_function : function() {
+    conditional_function: function () {
         let local_difficulty = difficulty;
         if (local_difficulty >= 18) {
             return true;
@@ -230,6 +230,7 @@ let timeline_7 = {
 // 先写测试版，暂时不控制difficulty这个变量的变化，只做根据不同范围启动不同的timeline
 let timeline_control = {
     //按顺序遍历三个timeline，在每个timeline里单独用conditional_function控制
+    timeline: [timeline_5, timeline_6, timeline_7],
 };
 
 // 结束语
@@ -243,6 +244,6 @@ let ending = {
 
 /* jsPsych 运行*/
 jsPsych.run([
-    instruction, timeline_node, ending
+    instruction, timeline_control, ending
 ]);
 
