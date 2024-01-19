@@ -5,6 +5,7 @@ var block_size = 9.5;
 
 // 外部储存一个用来传sequence的全局变量（这做法是不是不太对啊（
 var local_sequence = [];
+var error_times = 0;
 
 // 方块布局
 var block_arrangement_5 = [
@@ -231,6 +232,22 @@ let timeline_7 = {
 let timeline_control = {
     //按顺序遍历三个timeline，在每个timeline里单独用conditional_function控制
     timeline: [timeline_5, timeline_6, timeline_7],
+    loop_function: function () {
+        let last_trial_correct = jsPsych.data.getLastTrialData().trials[0].correct;
+        if (last_trial_correct == true) {
+            difficulty++;
+            error_times = 0;
+        }
+        else {
+            error_times++;
+        };
+        if (error_times > 1) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 };
 
 // 结束语
