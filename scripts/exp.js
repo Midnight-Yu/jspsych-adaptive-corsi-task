@@ -72,12 +72,12 @@ let jsPsych = initJsPsych({
     on_finish: function () {
         jsPsych.data
             .get()
-            .localSave('csv', 'data.csv')
+            .localSave('csv', 'data-'.concat(Date(0).toLocaleString('zh-CN')).concat('.csv'))
     },
     on_close: function () {
         jsPsych.data
             .get()
-            .localSave('csv', 'data.csv')
+            .localSave('csv', 'data-'.concat(Date(0).toLocaleString('zh-CN')).concat('.csv'))
     }
 });
 
