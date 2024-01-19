@@ -3,7 +3,7 @@
 // 方块大小 //这个数字一般不做变动？
 var block_size = 9.5;
 
-// 外部储存一个用来传sequence的全局变量（这做法是不是不太对啊（
+// 外部储存数据用的变量，在全局初始化
 var local_sequence = [];
 var error_times = 0;
 
@@ -245,6 +245,10 @@ let timeline_control = {
         else {
             return true;
         }
+    },
+    on_finish: function (data) {
+        data.difficulty = difficulty;
+        data.error_times = error_times;
     }
 };
 
