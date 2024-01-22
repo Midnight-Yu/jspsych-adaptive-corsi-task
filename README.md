@@ -1,5 +1,5 @@
-# jspsych-adaptive-corsi-demo
-A demo for an adaptive visual CORSI task using jsPsych.
+# jspsych-adaptive-corsi-task
+An adaptive visual CORSI task using jsPsych.
 
 Check [here](https://midnight-yu.github.io/develop-notes-jspsych/corsi/) for development notes.
 
