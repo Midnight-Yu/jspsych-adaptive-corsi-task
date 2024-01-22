@@ -124,7 +124,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
              */
             highlight_image: {
                 type: jspsych.ParameterType.STRING,
-                default: "img/laoshu.bmp",
+                default: "img/laoshu.png",
             },
             /**
              * 正确反馈的颜色。
