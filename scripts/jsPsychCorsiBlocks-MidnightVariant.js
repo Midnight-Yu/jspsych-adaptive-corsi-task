@@ -1,12 +1,14 @@
+// 定义jsPsychCorsiBlocks模块，使用立即执行函数包裹
 var jsPsychCorsiBlocks = (function (jspsych) {
     'use strict';
-  
+
+    // 定义插件信息，包括名称和参数
     const info = {
         name: "corsi-blocks",
         parameters: {
             /**
-             * An array of block indexes that specify the order of the sequence to be displayed. For example,
-             * [0, 1, 2, 3, 4] would display the first 5 blocks in the order they appear in the blocks parameter.
+             * 一个指定要显示的序列顺序的块索引数组。例如，
+             * [0, 1, 2, 3, 4] 将按照blocks参数中的顺序显示前5个块。
              */
             sequence: {
                 type: jspsych.ParameterType.INT,
@@ -14,11 +16,11 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                 array: true,
             },
             /**
-             * An array of objects that specify the x and y coordinates of each block. The coordinates represent the center
-             * of the block. The coordinates are specified as percentages of the width and height of the display. For example,
-             * {x: 50, y: 50} would place the block in the center of the display.
+             * 一个指定每个块的x和y坐标的对象数组。坐标表示块的中心，
+             * 并以显示宽度和高度的百分比表示。例如，
+             * {x: 50, y: 50} 将把块放置在显示的中心。
              *
-             * The default value is an array of nine blocks that approximates the layout of the original Corsi blocks task.
+             * 默认值是一个包含九个块的数组，近似原始Corsi块任务的布局。
              */
             blocks: {
                 type: jspsych.ParameterType.COMPLEX,
@@ -46,36 +48,36 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                 },
             },
             /**
-             * The size of the blocks as a percentage of the overall display size.
+             * 块的大小，作为整体显示大小的百分比。
              */
             block_size: {
                 type: jspsych.ParameterType.INT,
                 default: 12,
             },
             /**
-             * The width of the display, specified as a valid CSS measurement.
+             * 显示的宽度，以有效的CSS测量方式指定。
              */
             display_width: {
                 type: jspsych.ParameterType.STRING,
                 default: "400px",
             },
             /**
-             * The height of the display, specified as a valid CSS measurement.
+             * 显示的高度，以有效的CSS测量方式指定。
              */
             display_height: {
                 type: jspsych.ParameterType.STRING,
                 default: "400px",
             },
             /**
-             * An optional text prompt that can be shown below the display area.
+             * 可选的文本提示，可以显示在显示区域下方。
              */
             prompt: {
                 type: jspsych.ParameterType.STRING,
                 default: null,
             },
             /**
-             * The mode of the trial. If 'display', then the sequence is displayed and the trial ends after
-             * the sequence is complete. If 'input', then the use must click on the blocks in the correct order.
+             * 试验的模式。如果是'display'，则显示序列并在序列完成后结束试验。
+             * 如果是'input'，则用户必须按照正确的顺序点击块。
              */
             mode: {
                 type: jspsych.ParameterType.STRING,
@@ -83,57 +85,56 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                 options: ["display", "input"],
             },
             /**
-             * The duration, in milliseconds, between each block in the sequence.
+             * 每个序列块之间的持续时间，以毫秒为单位。
              */
             sequence_gap_duration: {
                 type: jspsych.ParameterType.INT,
                 default: 250,
             },
             /**
-             * The duration, in milliseconds, that each block is displayed during the sequence.
+             * 在序列期间显示每个块的持续时间，以毫秒为单位。
              */
             sequence_block_duration: {
                 type: jspsych.ParameterType.INT,
                 default: 1000,
             },
             /**
-             * The duration, in milliseconds, to show the blocks before the sequence begins.
+             * 在序列开始之前显示块的持续时间，以毫秒为单位。
              */
             pre_stim_duration: {
                 type: jspsych.ParameterType.INT,
                 default: 500,
             },
             /**
-             * The duration, in milliseconds, to show the feedback response animation
-             * during input mode.
+             * 在输入模式下显示反馈响应动画的持续时间，以毫秒为单位。
              */
             response_animation_duration: {
                 type: jspsych.ParameterType.INT,
                 default: 500,
             },
             /**
-             * The color of unselected, unhighlighted blocks.
+             * 未选择、未突出显示的块的颜色。
              */
             block_color: {
                 type: jspsych.ParameterType.STRING,
                 default: "#555",
             },
             /**
-             * The color of the highlighted block.
+             * 突出显示块的颜色。
              */
-            highlight_color: {
+            highlight_image: {
                 type: jspsych.ParameterType.STRING,
-                default: "#ff0000",
+                default: "img/laoshu.bmp",
             },
             /**
-             * The color of correct feedback.
+             * 正确反馈的颜色。
              */
             correct_color: {
                 type: jspsych.ParameterType.STRING,
                 default: "#00ff00",
             },
             /**
-             * The color of incorrect feedback.
+             * 不正确反馈的颜色。
              */
             incorrect_color: {
                 type: jspsych.ParameterType.STRING,
@@ -144,12 +145,10 @@ var jsPsychCorsiBlocks = (function (jspsych) {
     /**
      * **corsi-blocks**
      *
-     * This plugin displays a sequence of blocks and then gets the
-     * subject's response. The sequence can be displayed in either
-     * 'display' mode or 'input' mode. In 'display' mode, the
-     * sequence is displayed and the trial ends after the sequence
-     * is complete. In 'input' mode, the subject must click on the
-     * blocks in the correct order.
+     * 该插件显示一系列块，然后获取被试者的响应。
+     * 该序列可以在'display'模式或'input'模式下显示。
+     * 在'display'模式下，显示序列并在序列完成后结束试验。
+     * 在'input'模式下，被试者必须按照正确的顺序点击块。
      *
      * @author Josh de Leeuw
      * @see {@link https://DOCUMENTATION_URL DOCUMENTATION LINK TEXT}
@@ -158,6 +157,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
         constructor(jsPsych) {
             this.jsPsych = jsPsych;
         }
+        // 定义试验方法
         trial(display_element, trial) {
             let css = `<style id="jspsych-corsi-css">
         #jspsych-corsi-stimulus { 
@@ -194,6 +194,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
             html += "</div>";
             display_element.innerHTML = html;
             const start_time = performance.now();
+            // 定义试验数据对象
             const trial_data = {
                 sequence: trial.sequence,
                 response: [],
@@ -201,10 +202,12 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                 blocks: trial.blocks,
                 correct: null,
             };
+            // 定义结束试验的函数
             const end_trial = () => {
                 display_element.innerHTML = "";
                 this.jsPsych.finishTrial(trial_data);
             };
+            // 定义等待函数
             const wait = function (fn, t) {
                 const start = performance.now();
                 const _wait_help = (fn, t, s) => {
@@ -218,9 +221,11 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                 };
                 window.requestAnimationFrame(() => _wait_help(fn, t, start));
             };
+            // 根据试验模式执行不同的逻辑
             if (trial.mode == "display") {
                 let sequence_location = 0;
                 let display_phase = "pre-stim";
+                // 更新显示的函数
                 const update_display = () => {
                     if (display_phase == "pre-stim") {
                         wait(update_display, trial.pre_stim_duration);
@@ -229,7 +234,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                     else if (display_phase == "sequence") {
                         const block = display_element.querySelector(`.jspsych-corsi-block[data-id="${trial.sequence[sequence_location]}"]`);
                         if (sequence_location < trial.sequence.length) {
-                            block.style.backgroundColor = trial.highlight_color;
+                            block.style.backgroundImage = `url('${trial.highlight_image}')`;
                             wait(update_display, trial.sequence_block_duration);
                             display_phase = "iti";
                         }
@@ -239,7 +244,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                     }
                     else if (display_phase == "iti") {
                         const block = display_element.querySelector(`.jspsych-corsi-block[data-id="${trial.sequence[sequence_location]}"]`);
-                        block.style.backgroundColor = trial.block_color;
+                        block.style.backgroundImage = 'none'; // 设置为'none'，即没有背景图像
                         sequence_location++;
                         wait(update_display, trial.sequence_gap_duration);
                         display_phase = "sequence";
@@ -248,23 +253,27 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                 window.requestAnimationFrame(update_display);
             }
             if (trial.mode == "input") {
+                // 正确反馈的动画
                 const correct_animation = [
                     { backgroundColor: trial.block_color },
                     { backgroundColor: trial.correct_color, offset: 0.2 },
                     { backgroundColor: trial.block_color },
                 ];
+                // 不正确反馈的动画
                 const incorrect_animation = [
                     { backgroundColor: trial.block_color },
                     { backgroundColor: trial.incorrect_color, offset: 0.2 },
                     { backgroundColor: trial.block_color },
                 ];
+                // 动画的定时设置
                 const animation_timing = {
                     duration: trial.response_animation_duration,
                     iterations: 1,
                 };
+                // 注册点击事件的函数
                 const register_click = (id) => {
                     if (trial_data.correct !== null) {
-                        return; // extra click during timeout, do nothing
+                        return; // 在超时期间的额外点击，不执行任何操作
                     }
                     const rt = Math.round(performance.now() - start_time);
                     trial_data.response.push(parseInt(id));
@@ -276,7 +285,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                             .animate(correct_animation, animation_timing);
                         if (trial_data.response.length == trial.sequence.length) {
                             trial_data.correct = true;
-                            setTimeout(end_trial, trial.response_animation_duration); // allows animation to finish
+                            setTimeout(end_trial, trial.response_animation_duration); // 允许动画完成
                         }
                     }
                     else {
@@ -284,7 +293,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                             .querySelector(`.jspsych-corsi-block[data-id="${id}"]`)
                             .animate(incorrect_animation, animation_timing);
                         trial_data.correct = false;
-                        setTimeout(end_trial, trial.response_animation_duration); // allows animation to finish
+                        setTimeout(end_trial, trial.response_animation_duration); // 允许动画完成
                     }
                 };
                 var blocks = display_element.querySelectorAll(".jspsych-corsi-block");
@@ -297,8 +306,8 @@ var jsPsychCorsiBlocks = (function (jspsych) {
         }
     }
     CorsiBlocksPlugin.info = info;
-  
+
     return CorsiBlocksPlugin;
-  
-  })(jsPsychModule);
-  //# sourceMappingURL=index.browser.js.map
+
+})(jsPsychModule);
+//# sourceMappingURL=index.browser.js.map
