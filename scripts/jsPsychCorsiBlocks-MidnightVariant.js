@@ -117,7 +117,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
              */
             block_color: {
                 type: jspsych.ParameterType.STRING,
-                default: "#555",
+                default: "#d1d1d3",
             },
             /**
              * 突出显示块的颜色。
@@ -235,6 +235,8 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                         const block = display_element.querySelector(`.jspsych-corsi-block[data-id="${trial.sequence[sequence_location]}"]`);
                         if (sequence_location < trial.sequence.length) {
                             block.style.backgroundImage = `url('${trial.highlight_image}')`;
+                            block.style.backgroundPosition = `center`;
+                            block.style.backgroundSize = `cover`;
                             wait(update_display, trial.sequence_block_duration);
                             display_phase = "iti";
                         }
