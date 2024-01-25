@@ -246,12 +246,6 @@ let timeline_control = {
             }
             error_times++;
         };
-        if (error_times > 1) {
-            return false;
-        }
-        else {
-            return true;
-        }
     },
     on_finish: function (data) {
         data.difficulty = difficulty;
