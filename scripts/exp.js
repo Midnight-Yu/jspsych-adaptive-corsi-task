@@ -246,6 +246,7 @@ let timeline_control = {
             }
             error_times++;
         };
+        return true; //先写着永远返回true
     },
     on_finish: function (data) {
         data.difficulty = difficulty;
