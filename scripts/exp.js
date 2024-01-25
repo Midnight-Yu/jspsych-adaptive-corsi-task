@@ -7,7 +7,7 @@ var block_size = 9.5;
 var local_sequence = [];
 var error_times = 0;
 
-// 方块布局
+// 方块布局 //有可能写一个自动生成吗？ //还得调
 var block_arrangement_5 = [
     { x: 30, y: 30 }, { x: 40, y: 30 }, { x: 50, y: 30 }, { x: 60, y: 30 }, { x: 70, y: 30 },
     { x: 30, y: 40 }, { x: 40, y: 40 }, { x: 50, y: 40 }, { x: 60, y: 40 }, { x: 70, y: 40 },
@@ -235,10 +235,15 @@ let timeline_control = {
     loop_function: function () {
         let last_trial_correct = jsPsych.data.getLastTrialData().trials[0].correct;
         if (last_trial_correct == true) {
-            difficulty++;
+            if (difficulty < 24) {
+                difficulty++;
+            }
             error_times = 0;
         }
         else {
+            if (difficulty > 2) {
+                difficulty--;
+            }
             error_times++;
         };
         if (error_times > 1) {
