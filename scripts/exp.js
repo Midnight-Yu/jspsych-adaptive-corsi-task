@@ -67,6 +67,14 @@ function getRandomElements(array, x) {
     return shuffledArray.slice(0, x);
 };
 
+// 和timer有关的部分
+var timer_status = true; //初始值为T，计时器结束后为F
+var timer_started = false; //计时器开没开
+function updateTimer() {
+    timer_status = false;
+    console.log("The timer has ended!")
+};
+
 /* 初始化jsPsych，注意添加的实验强制退出 */
 let jsPsych = initJsPsych({
     on_finish: function () {
@@ -231,6 +239,13 @@ let timeline_7 = {
 
 // timeline_control，用来控制运行哪一个timeline
 let timeline_control = {
+    on_timeline_start: function () {
+        if (timer_started == false) {
+            setTimeout(updateTimer, 360000); //六分钟的计时器
+            console.log("The timer has started!");
+            timer_started = true;
+        }
+    },
     timeline: [timeline_5, timeline_6, timeline_7],   //按顺序遍历三个timeline，在每个timeline里单独用conditional_function控制
     loop_function: function () {
         let last_trial_correct = jsPsych.data.getLastTrialData().trials[0].correct;
@@ -246,7 +261,7 @@ let timeline_control = {
             }
             error_times++;
         };
-        return true; //先写着永远返回true
+        return timer_status;
     },
     on_finish: function (data) {
         data.difficulty = difficulty;
