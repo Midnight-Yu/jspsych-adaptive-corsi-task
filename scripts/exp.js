@@ -7,7 +7,41 @@ var block_size = 9.5;
 var local_sequence = [];
 var error_times = 0;
 
-// 方块布局
+// 方块布局（自动生成版）
+// 方块布局生成函数
+function generateBlockArrangement(rows, cols, step) {
+    var block_arrangement = [];
+    var topLeftX = 0;
+    var topLeftY = 0;
+
+    for (var y = topLeftY; y <= topLeftY + step * (rows - 1); y += step) {
+        for (var x = topLeftX; x <= topLeftX + step * (cols - 1); x += step) {
+            block_arrangement.push({ x: x, y: y });
+        }
+    }
+    return block_arrangement;
+};
+
+// 方块布局偏移函数
+function offsetBlockArrangement(arrangement_array, offset) {
+    for (var i = 0; i < arrangement_array.length; i++) {
+        arrangement_array[i].x = arrangement_array[i].x + offset
+        arrangement_array[i].y = arrangement_array[i].y + offset
+    }
+};
+
+// 生成方块布局
+var block_arrangement_5 = generateBlockArrangement(5, 5, 10);
+offsetBlockArrangement(block_arrangement_5, 30);
+
+var block_arrangement_6 = generateBlockArrangement(6, 6, 10);
+offsetBlockArrangement(block_arrangement_6, 25);
+
+var block_arrangement_7 = generateBlockArrangement(7, 7, 10);
+offsetBlockArrangement(block_arrangement_7, 20);
+
+// 方块布局（手写版）
+/*
 var block_arrangement_5 = [
     { x: 30, y: 30 }, { x: 40, y: 30 }, { x: 50, y: 30 }, { x: 60, y: 30 }, { x: 70, y: 30 },
     { x: 30, y: 40 }, { x: 40, y: 40 }, { x: 50, y: 40 }, { x: 60, y: 40 }, { x: 70, y: 40 },
@@ -34,6 +68,7 @@ var block_arrangement_7 = [
     { x: 20, y: 70 }, { x: 30, y: 70 }, { x: 40, y: 70 }, { x: 50, y: 70 }, { x: 60, y: 70 }, { x: 70, y: 70 }, { x: 80, y: 70 },
     { x: 20, y: 80 }, { x: 30, y: 80 }, { x: 40, y: 80 }, { x: 50, y: 80 }, { x: 60, y: 80 }, { x: 70, y: 80 }, { x: 80, y: 80 },
 ];
+*/
 
 // 生成序列数字的函数
 function generateSequence(index_max) {
@@ -136,7 +171,7 @@ let timeline_5 = {
                 return randomized_array;
             },
             mode: 'display',
-            prompt : "请记忆"
+            prompt: "请记忆"
         },
         {
             type: jsPsychCorsiBlocks,
@@ -151,7 +186,7 @@ let timeline_5 = {
                 return original_list;
             },
             mode: 'input',
-            prompt : "请回忆"
+            prompt: "请回忆"
         }
     ],
     conditional_function: function () {
@@ -180,7 +215,7 @@ let timeline_6 = {
                 return randomized_array;
             },
             mode: 'display',
-            prompt : "请记忆"
+            prompt: "请记忆"
         },
         {
             type: jsPsychCorsiBlocks,
@@ -195,7 +230,7 @@ let timeline_6 = {
                 return original_list;
             },
             mode: 'input',
-            prompt : "请回忆"
+            prompt: "请回忆"
         }
     ],
     conditional_function: function () {
@@ -224,7 +259,7 @@ let timeline_7 = {
                 return randomized_array;
             },
             mode: 'display',
-            prompt : "请记忆"
+            prompt: "请记忆"
         },
         {
             type: jsPsychCorsiBlocks,
@@ -239,7 +274,7 @@ let timeline_7 = {
                 return original_list;
             },
             mode: 'input',
-            prompt : "请回忆"
+            prompt: "请回忆"
         }
     ],
     conditional_function: function () {
