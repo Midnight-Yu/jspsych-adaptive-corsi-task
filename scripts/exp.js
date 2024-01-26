@@ -315,14 +315,12 @@ let timeline_control = {
             error_times = 0;
         }
         else {
+            error_times++;
             if (error_times >= 2) {
                 error_times = 0; //清空错误次数
                 if (difficulty > 2) {
                     difficulty--;
                 }
-            }
-            else {
-                error_times++;
             }
         };
         return timer_status;
