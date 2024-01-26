@@ -136,8 +136,8 @@ let timeline_5 = {
             sequence: function () {
                 // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
-                let reversed_list = original_list.reverse();
-                return reversed_list;
+                // let reversed_list = original_list.reverse();
+                return original_list;
             },
             mode: 'input'
         }
@@ -178,8 +178,8 @@ let timeline_6 = {
             sequence: function () {
                 // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
-                let reversed_list = original_list.reverse();
-                return reversed_list;
+                // let reversed_list = original_list.reverse();
+                return original_list;
             },
             mode: 'input'
         }
@@ -220,8 +220,8 @@ let timeline_7 = {
             sequence: function () {
                 // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
-                let reversed_list = original_list.reverse();
-                return reversed_list;
+                // let reversed_list = original_list.reverse();
+                return original_list;
             },
             mode: 'input'
         }
