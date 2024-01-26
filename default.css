@@ -40,7 +40,7 @@ body {
 /*本实验特定：要求所有corsi刺激项目完全居中*/
 #jspsych-corsi-stimulus { 
     position: absolute !important ;
-    top: 50%  !important ;
+    top: 40%  !important ;
     left: 50%  !important ;
     transform: translate(-50%, -50%) !important ;
   }
