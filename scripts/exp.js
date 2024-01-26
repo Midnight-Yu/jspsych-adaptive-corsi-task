@@ -96,7 +96,7 @@ let instruction = {
     <div class='experiment-instruction'> 
     <p>这是一段实验指导语</p>
     <p>请你在看见方块闪烁后，按照方块闪烁的顺序</p>
-    <p>倒序点击这些方块</p>
+    <p>点击这些方块</p>
     <p>按空格继续</p>
     </div>
     `,

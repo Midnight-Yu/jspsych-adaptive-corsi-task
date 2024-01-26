@@ -17,7 +17,7 @@ body {
     transform: translate(-50%,-50%);
     font-size: 125%;
     font-family: Arial;
-    text-align: left;
+    text-align: left !important; 
 }
 
 /*定义实验材料样式*/
@@ -31,10 +31,10 @@ body {
 }*/
 
 /*定义p元素居中对齐*/
-p {
+/* p {
     text-align: center;
     vertical-align:auto;
-}
+}*/
 
 /*本实验特定：要求所有corsi刺激项目完全居中*/
 #jspsych-corsi-stimulus { 
