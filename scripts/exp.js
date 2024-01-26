@@ -81,7 +81,7 @@ let jsPsych = initJsPsych({
     }
 });
 
-// 注册一个listener，用于实验强制退出 //不太对，整个实验没有开放keyboard response，好像读不到按ESC的事件
+// 注册一个listener，用于实验强制退出
 function endExperiment(e) {
     if (e.key === 'Escape') {
         jsPsych.endExperiment('实验已终止');
@@ -115,7 +115,10 @@ let instruction = {
     `,
     post_trial_gap: 500,
     button_html: '<button class="jspsych-btn">%choice%</button>',
-    choices: ["开始"]
+    choices: ["开始"],
+    on_start: function () {
+        document.addEventListener("keydown", endExperiment)
+    }
 };
 
 // 5盘面的timeline，作为子时间线运行
@@ -281,7 +284,10 @@ let ending = {
     stimulus: `
     <div class='experiment-instruction'><p>实验已结束</p></div>
     `,
-    post_trial_gap: 500
+    post_trial_gap: 500,
+    on_start: function () {
+        document.removeEventListener("keydown", endExperiment)
+    }
 };
 
 /* jsPsych 运行*/
