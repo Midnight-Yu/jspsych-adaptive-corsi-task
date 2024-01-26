@@ -102,10 +102,24 @@ let instruction = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
     <div class='experiment-instruction'> 
-    <p>这是一段实验指导语</p>
-    <p>请你在看见方块闪烁后，按照方块闪烁的顺序</p>
-    <p>点击这些方块</p>
-    <p>按空格继续</p>
+    <p>
+    同学们好，接下来要进行的是打地鼠游戏
+    </p>
+
+    <p>
+    游戏开始以后，屏幕上会出现黑色的方块，在这些黑色的方块中会按照顺序<br>
+    依次出现<span style="color:red">红色边框的地鼠</span>，请记住这些<span style="color:red">地鼠出现的顺序和位置</span><br>
+    一段时间以后，这些地鼠会消失，等待一段时间，当方块下方出现“请回忆”<br>
+    的字以后，请用鼠标点击<span style="color:red">按顺序</span>回忆出现过的地鼠的位置<br>
+    请注意，是按照地鼠出现的顺序回忆哦~
+    </p>
+
+    <p>
+    当你连续回答正确两次以后，会进入下一关，出现的地鼠的数量会增加一个
+    当你连续回答错误两次之后，出现的地鼠的数量会减少一个。游戏时长为10
+    分钟。
+    你是否明白规则了呢？现在点击屏幕开始游戏吧~
+    </p>
     </div>
     `,
     post_trial_gap: 500

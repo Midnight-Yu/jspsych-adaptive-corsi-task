@@ -16,7 +16,8 @@ body {
     left: 50%;
     transform: translate(-50%,-50%);
     font-size: 125%;
-    font-family: Arial;
+    font-family: SimHei;
+    font-weight: bold;
     text-align: left !important;
 }
 
