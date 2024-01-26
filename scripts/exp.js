@@ -99,7 +99,7 @@ function endExperiment(e) {
 
 // 指导语
 let instruction = {
-    type: jsPsychHtmlKeyboardResponse,
+    type: jsPsychHtmlButtonResponse,
     stimulus: `
     <div class='experiment-instruction'> 
     <p>
@@ -116,13 +116,14 @@ let instruction = {
 
     <p>
     当你连续回答正确两次以后，会进入下一关，出现的地鼠的数量会增加一个<br>
-    当你连续回答错误两次之后，出现的地鼠的数量会减少一个。游戏时长为10<br>
-    分钟。<br>
+    当你连续回答错误两次之后，游戏将会结束。<br>
     你是否明白规则了呢？现在点击屏幕开始游戏吧~
     </p>
     </div>
     `,
-    post_trial_gap: 500
+    post_trial_gap: 500,
+    button_html: '<button class="jspsych-btn">%choice%</button>',
+    choices: ["开始"]
 };
 
 // 5盘面的timeline，作为子时间线运行
