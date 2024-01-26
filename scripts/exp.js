@@ -256,10 +256,15 @@ let timeline_control = {
             error_times = 0;
         }
         else {
-            if (difficulty > 2) {
-                difficulty--;
+            if (error_times >= 2) {
+                error_times = 0; //清空错误次数
+                if (difficulty > 2) {
+                    difficulty--;
+                }
             }
-            error_times++;
+            else {
+                error_times++;
+            }
         };
         return timer_status;
     },
