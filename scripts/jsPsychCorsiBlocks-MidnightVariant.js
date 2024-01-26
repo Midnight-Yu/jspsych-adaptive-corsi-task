@@ -117,7 +117,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
              */
             block_color: {
                 type: jspsych.ParameterType.STRING,
-                default: "#d1d1d3",
+                default: "#8a898b",
             },
             /**
              * 突出显示块的颜色。
