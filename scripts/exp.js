@@ -123,7 +123,10 @@ let instruction = {
     `,
     post_trial_gap: 500,
     button_html: '<button class="jspsych-btn">%choice%</button>',
-    choices: ["开始"]
+    choices: ["开始"],
+    on_start: function () {
+        document.addEventListener("keydown", endExperiment)
+    }
 };
 
 // 5盘面的timeline，作为子时间线运行
@@ -301,7 +304,10 @@ let ending = {
     stimulus: `
     <div class='experiment-instruction'><p>实验已结束</p></div>
     `,
-    post_trial_gap: 500
+    post_trial_gap: 500,
+    on_start: function () {
+        document.removeEventListener("keydown", endExperiment)
+    }
 };
 
 /* jsPsych 运行*/
