@@ -15,8 +15,9 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    font-size: 300%;
+    font-size: 125%;
     font-family: Arial;
+    text-align: left;
 }
 
 /*定义实验材料样式*/
