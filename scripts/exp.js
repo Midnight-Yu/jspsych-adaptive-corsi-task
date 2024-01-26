@@ -91,7 +91,7 @@ function endExperiment(e) {
 
 // 指导语
 let instruction = {
-    type: jsPsychHtmlKeyboardResponse,
+    type: jsPsychHtmlButtonResponse,
     stimulus: `
     <div class='experiment-instruction'> 
     <p>
@@ -113,7 +113,9 @@ let instruction = {
     </p>
     </div>
     `,
-    post_trial_gap: 500
+    post_trial_gap: 500,
+    button_html: '<button class="jspsych-btn">%choice%</button>',
+    choices: ["开始"]
 };
 
 // 5盘面的timeline，作为子时间线运行

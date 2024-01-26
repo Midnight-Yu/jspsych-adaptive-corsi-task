@@ -11,10 +11,10 @@ body {
 
 /*定义实验指导语样式*/
 .experiment-instruction {
-    position: absolute;
+    /*position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);*/
     font-size: 125%;
     font-family: SimHei;
     font-weight: bold;
