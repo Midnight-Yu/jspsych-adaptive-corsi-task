@@ -139,7 +139,8 @@ let timeline_5 = {
                 local_sequence = [...randomized_array];
                 return randomized_array;
             },
-            mode: 'display'
+            mode: 'display',
+            prompt : "请记忆"
         },
         {
             type: jsPsychCorsiBlocks,
@@ -153,7 +154,8 @@ let timeline_5 = {
                 // let reversed_list = original_list.reverse();
                 return original_list;
             },
-            mode: 'input'
+            mode: 'input',
+            prompt : "请回忆"
         }
     ],
     conditional_function: function () {
@@ -181,7 +183,8 @@ let timeline_6 = {
                 local_sequence = [...randomized_array];
                 return randomized_array;
             },
-            mode: 'display'
+            mode: 'display',
+            prompt : "请记忆"
         },
         {
             type: jsPsychCorsiBlocks,
@@ -195,7 +198,8 @@ let timeline_6 = {
                 // let reversed_list = original_list.reverse();
                 return original_list;
             },
-            mode: 'input'
+            mode: 'input',
+            prompt : "请回忆"
         }
     ],
     conditional_function: function () {
@@ -223,7 +227,8 @@ let timeline_7 = {
                 local_sequence = [...randomized_array];
                 return randomized_array;
             },
-            mode: 'display'
+            mode: 'display',
+            prompt : "请记忆"
         },
         {
             type: jsPsychCorsiBlocks,
@@ -237,7 +242,8 @@ let timeline_7 = {
                 // let reversed_list = original_list.reverse();
                 return original_list;
             },
-            mode: 'input'
+            mode: 'input',
+            prompt : "请回忆"
         }
     ],
     conditional_function: function () {
