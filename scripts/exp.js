@@ -333,6 +333,9 @@ let timeline_control = {
         };
         return timer_status;
     },
+    data: {
+        is_trial: true,
+    },
     on_finish: function (data) {
         data.difficulty = difficulty;
         data.error_times = error_times;
