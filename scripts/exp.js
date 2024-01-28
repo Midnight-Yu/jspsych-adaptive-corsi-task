@@ -156,6 +156,14 @@ let instruction = {
     }
 };
 
+let difficulty_screen = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: "下一个试次的老鼠个数为："+difficulty,
+    choices: ["继续"],
+    button_html: '<button class="jspsych-btn">%choice%</button>',
+    post_trial_gap: 500,
+};
+
 // 5盘面的timeline，作为子时间线运行
 let timeline_5 = {
     timeline: [
@@ -290,7 +298,7 @@ let timeline_7 = {
 
 // timeline_control，用来控制运行哪一个timeline
 let timeline_control = {
-    timeline: [timeline_5, timeline_6, timeline_7],   //按顺序遍历三个timeline，在每个timeline里单独用conditional_function控制
+    timeline: [difficulty_screen, timeline_5, timeline_6, timeline_7],   //按顺序遍历三个timeline，在每个timeline里单独用conditional_function控制
     loop_function: function () {
         let last_trial_correct = jsPsych.data.getLastTrialData().trials[0].correct;
         if (last_trial_correct == true) {
