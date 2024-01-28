@@ -318,7 +318,10 @@ let timeline_control = {
     on_finish: function (data) {
         data.difficulty = difficulty;
         data.error_times = error_times;
-    }
+    },
+    data: {
+        is_trial: true,
+    },
 };
 
 // 结束语
