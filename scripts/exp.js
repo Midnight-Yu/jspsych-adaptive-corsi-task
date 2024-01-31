@@ -318,15 +318,22 @@ let timeline_control = {
     loop_function: function () {
         let last_trial_correct = jsPsych.data.getLastTrialData().trials[0].correct;
         if (last_trial_correct == true) {
-            if (difficulty < 24) {
-                difficulty++;
-            }
+            correct_times++;
             error_times = 0;
+
+            if (correct_times > 1) {
+                correct_times = 0;
+                if (difficulty < 24) {
+                    difficulty++;
+                }
+            }
         }
         else {
             error_times++;
-            if (error_times >= 2) {
-                error_times = 0; //清空错误次数
+            correct_times = 0;
+
+            if (error_times > 1) {
+                error_times = 0; 
                 if (difficulty > 2) {
                     difficulty--;
                 }
