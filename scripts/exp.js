@@ -3,11 +3,6 @@
 // 方块大小 //这个数字一般不做变动？
 var block_size = 9.5;
 
-// 外部储存数据用的变量，在全局初始化
-var local_sequence = [];
-var error_times = 0;
-var correct_times = 0;
-
 // 方块布局（自动生成版）
 // 方块布局生成函数
 function generateBlockArrangement(rows, cols, step) {
@@ -70,6 +65,11 @@ var block_arrangement_7 = [
     { x: 20, y: 80 }, { x: 30, y: 80 }, { x: 40, y: 80 }, { x: 50, y: 80 }, { x: 60, y: 80 }, { x: 70, y: 80 }, { x: 80, y: 80 },
 ];
 */
+
+// 外部储存数据用的变量，在全局初始化
+var local_sequence = [];
+var error_times = 0;
+var correct_times = 0;
 
 // 生成序列数字的函数
 function generateSequence(index_max) {
