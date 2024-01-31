@@ -78,6 +78,7 @@ function generateSequence(index_max) {
 // 外部储存数据用的变量，在全局初始化
 var local_sequence = [];
 var error_times = 0;
+var correct_times = 0;
 
 // 方块ID列表，用在随机化函数里面
 var block_id_list_5 = generateSequence(25);
