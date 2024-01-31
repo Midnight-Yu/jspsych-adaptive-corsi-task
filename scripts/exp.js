@@ -322,7 +322,7 @@ let timeline_control = {
         }
         else { //否则
             return true; //继续试验
-        }
+        };
     },
     on_finish: function (data) {
         data.difficulty = difficulty;
