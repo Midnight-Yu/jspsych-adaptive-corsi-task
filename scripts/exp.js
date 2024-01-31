@@ -169,6 +169,7 @@ let difficulty_screen = {
     type: jsPsychHtmlButtonResponse,
     stimulus: () => "下一个试次的老鼠个数为："+difficulty,
     choices: ["继续"],
+    css_classes: 'experiment-difficulty',
     button_html: '<button class="jspsych-btn">%choice%</button>',
     post_trial_gap: 500,
 };

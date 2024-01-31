@@ -21,6 +21,11 @@ body {
     text-align: left !important; 
 }
 
+.experiment-difficulty {
+    font-size: 175%;
+    font-family: SimHei;
+}
+
 /*定义实验材料样式*/
 /*.experiment-content {
     position: absolute;
