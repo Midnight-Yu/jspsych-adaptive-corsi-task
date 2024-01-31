@@ -6,6 +6,7 @@ var block_size = 9.5;
 // 外部储存数据用的变量，在全局初始化
 var local_sequence = [];
 var error_times = 0;
+var correct_times = 0;
 
 // 方块布局（自动生成版）
 // 方块布局生成函数
@@ -300,19 +301,27 @@ let timeline_7 = {
 let timeline_control = {
     timeline: [difficulty_screen, timeline_5, timeline_6, timeline_7],   //按顺序遍历三个timeline，在每个timeline里单独用conditional_function控制
     loop_function: function () {
-        let last_trial_correct = jsPsych.data.getLastTrialData().trials[0].correct;
-        if (last_trial_correct == true) {
-            difficulty++;
-            error_times = 0;
+        let last_trial_correct = jsPsych.data.getLastTrialData().trials[0].correct; //获取上一个试次的正确性
+
+        if (last_trial_correct == true) { //当上一个试次正确时
+            correct_times++; //正确次数累加
+            error_times = 0; //清空错误计数
+
+            if (correct_times > 1) { //如果正确次数大于1（达到2）
+                difficulty++; //上调一次难度
+                correct_times = 0; //清空正确次数
+            }
         }
-        else {
-            error_times++;
+        else { //当上一个试次错误时
+            error_times++; //错误次数累加
+            correct_times = 0; //正确次数清空
         };
-        if (error_times > 1) {
-            return false;
+        
+        if (error_times > 1) { //如果错误次数大于1（达到2）
+            return false; // 停止实验
         }
-        else {
-            return true;
+        else { //否则
+            return true; //继续试验
         }
     },
     on_finish: function (data) {
