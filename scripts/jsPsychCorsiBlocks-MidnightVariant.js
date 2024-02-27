@@ -237,6 +237,9 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                             block.style.backgroundImage = `url('${trial.highlight_image}')`;
                             block.style.backgroundPosition = `center`;
                             block.style.backgroundSize = `cover`;
+                            block.style.borderStyle = `solid`;
+                            block.style.borderColor = `red`;
+                            block.style.borderWidth = `2px`;
                             wait(update_display, trial.sequence_block_duration);
                             display_phase = "iti";
                         }
@@ -246,7 +249,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                     }
                     else if (display_phase == "iti") {
                         const block = display_element.querySelector(`.jspsych-corsi-block[data-id="${trial.sequence[sequence_location]}"]`);
-                        block.style.backgroundImage = 'none'; // 设置为'none'，即没有背景图像
+                        //block.style.backgroundImage = 'none'; // 设置为'none'，即没有背景图像
                         sequence_location++;
                         wait(update_display, trial.sequence_gap_duration);
                         display_phase = "sequence";
