@@ -239,7 +239,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                             block.style.backgroundSize = `cover`;
                             block.style.borderStyle = `solid`;
                             block.style.borderColor = `red`;
-                            block.style.borderWidth = `3px`;
+                            block.style.borderWidth = `2px`;
                             wait(update_display, trial.sequence_block_duration);
                             display_phase = "iti";
                         }
