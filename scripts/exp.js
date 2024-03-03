@@ -103,16 +103,22 @@ function getRandomElements(array, x) {
     return shuffledArray.slice(0, x);
 };
 
+let participant_index;
+let gender;
+let age;
+
 /* 初始化jsPsych，注意添加的实验强制退出 */
 let jsPsych = initJsPsych({
     on_finish: function () {
         jsPsych.data
             .get()
+            .addToAll({ subject_index: participant_index, gender: gender, age: age, experiment_name: 'CORSI-assess' })
             .localSave('csv', 'data-'.concat(Date(0).toLocaleString('zh-CN')).concat('.csv'))
     },
     on_close: function () {
         jsPsych.data
             .get()
+            .addToAll({ subject_index: participant_index, gender: gender, age: age, experiment_name: 'CORSI-assess' })
             .localSave('csv', 'data-'.concat(Date(0).toLocaleString('zh-CN')).concat('.csv'))
     }
 });
@@ -122,6 +128,25 @@ function endExperiment(e) {
     if (e.key === 'Escape') {
         jsPsych.endExperiment('实验已终止');
         document.removeEventListener("keydown", endExperiment);
+    }
+};
+
+// 数据收集
+let data_collect = {
+    type: jsPsychSurveyHtmlForm,
+    css_classes: ['non-experiment'],
+    html: `
+    <p>您的编号：<input type="text" name="participant_index" style="color:black" placeholder="如不知道，请询问实验人员"></p>
+    <p>您的性别：<input type="radio" name="gender" value = "1" >男<input type="radio" name="gender" value = "2" >女</p>
+    <p>您的年龄：<input type="text" name="age" style="color:black" placeholder="请输入阿拉伯数字，如23"></p>
+    `,
+    button_label: '提交',
+    on_finish: function (data) {
+        console.log(data.response);
+
+        participant_index = data.response.participant_index;
+        gender = data.response.gender;
+        age = data.response.age;
     }
 };
 
@@ -384,11 +409,13 @@ let timeline_control = {
 
 // 结束语
 let ending = {
-    type: jsPsychHtmlKeyboardResponse,
+    type: jsPsychHtmlButtonResponse,
     stimulus: `
     <div class='experiment-instruction'><p>实验已结束</p></div>
     `,
     post_trial_gap: 500,
+    button_html: '<button class="jspsych-btn">%choice%</button>',
+    choices: ["结束"],
     on_start: function () {
         document.removeEventListener("keydown", endExperiment)
     }
@@ -396,6 +423,6 @@ let ending = {
 
 /* jsPsych 运行*/
 jsPsych.run([
-    instruction, timeline_control, ending
+    data_collect, instruction, timeline_control, ending
 ]);
 
