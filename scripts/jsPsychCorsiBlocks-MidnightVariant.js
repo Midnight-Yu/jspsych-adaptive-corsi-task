@@ -82,7 +82,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
             mode: {
                 type: jspsych.ParameterType.STRING,
                 default: "display",
-                options: ["display", "input"],
+                options: ["display", "input", "wait"],
             },
             /**
              * 每个序列块之间的持续时间，以毫秒为单位。
@@ -111,6 +111,13 @@ var jsPsychCorsiBlocks = (function (jspsych) {
             response_animation_duration: {
                 type: jspsych.ParameterType.INT,
                 default: 500,
+            },
+            /**
+             * 等待模式下，等待的时长。
+             */
+            wait_duration: {
+                type: jspsych.ParameterType.INT,
+                default: 0,
             },
             /**
              * 未选择、未突出显示的块的颜色。
@@ -179,7 +186,7 @@ var jsPsychCorsiBlocks = (function (jspsych) {
           top: 100%; 
         }
         #jspsych-corsi-prompt p { 
-          font-size: 18px; 
+          font-size: 28px; 
         }
         ${trial.mode == "input" ? ".jspsych-corsi-block { cursor: pointer; }" : ""}
       </style>`;
@@ -222,6 +229,11 @@ var jsPsychCorsiBlocks = (function (jspsych) {
                 window.requestAnimationFrame(() => _wait_help(fn, t, start));
             };
             // 根据试验模式执行不同的逻辑
+            if (trial.mode == "wait") {
+                wait(() => {
+                    end_trial();
+                }, trial.wait_duration)
+            }
             if (trial.mode == "display") {
                 let sequence_location = 0;
                 let display_phase = "pre-stim";
