@@ -203,6 +203,22 @@ let timeline_5 = {
                 // let reversed_list = original_list.reverse();
                 return original_list;
             },
+            mode: 'wait',
+            wait_duration: 5000,
+            prompt: "请等待"
+        },
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_5,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                let original_list = [...local_sequence];
+                // let reversed_list = original_list.reverse();
+                return original_list;
+            },
             mode: 'input',
             prompt: "请回忆"
         }
@@ -247,6 +263,22 @@ let timeline_6 = {
                 // let reversed_list = original_list.reverse();
                 return original_list;
             },
+            mode: 'wait',
+            wait_duration: 5000,
+            prompt: "请等待"
+        },
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_6,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                let original_list = [...local_sequence];
+                // let reversed_list = original_list.reverse();
+                return original_list;
+            },
             mode: 'input',
             prompt: "请回忆"
         }
@@ -278,6 +310,22 @@ let timeline_7 = {
             },
             mode: 'display',
             prompt: "请记忆"
+        },
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_7,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                let original_list = [...local_sequence];
+                // let reversed_list = original_list.reverse();
+                return original_list;
+            },
+            mode: 'wait',
+            wait_duration: 5000,
+            prompt: "请等待"
         },
         {
             type: jsPsychCorsiBlocks,
