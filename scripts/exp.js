@@ -71,6 +71,8 @@ var local_sequence = [];
 var error_times = 0;
 var correct_times = 0;
 
+var training_difficulty = [2, 4, 4, 4];
+var training_index = 0;
 // 生成序列数字的函数
 function generateSequence(index_max) {
     var array = [];
@@ -191,6 +193,102 @@ let difficulty_screen = {
     post_trial_gap: 500,
 };
 
+let timeline_5_training = {
+    on_finish: function (data) {
+        data.difficulty = training_difficulty[training_index];
+    },
+    data: {
+        is_trial: false,
+    },
+    timeline: [
+        {
+            type: jsPsychHtmlButtonResponse,
+            stimulus:  () => "下一个试次的老鼠个数为："+ training_difficulty[training_index],
+            css_classes: "experiment-difficulty",
+            choices: ["继续"],
+            button_html: '<button class="jspsych-btn">%choice%</button>',
+            post_trial_gap: 500,
+        },
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_5,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                let randomized_array = getRandomElements(block_id_list_5, training_difficulty[training_index]);
+                local_sequence = [...randomized_array];
+                return randomized_array;
+            },
+            mode: 'display',
+            prompt: "请记忆"
+        },
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_5,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                let original_list = [...local_sequence];
+                return original_list;
+            },
+            mode: 'wait',
+            wait_duration: 5000,
+            prompt: "请等待"
+        },
+        {
+            type: jsPsychCorsiBlocks,
+            blocks: block_arrangement_5,
+            block_size: block_size,
+            display_height: display_height,
+            display_width: display_width,
+            sequence: function () {
+                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
+                let original_list = [...local_sequence];
+                return original_list;
+            },
+            mode: 'input',
+            prompt: "请回忆",
+            on_finish: function(data) {
+                data.difficulty = training_difficulty[training_index];
+                training_index++;
+            }
+        },
+        {
+            timeline:[
+                {
+                    type: jsPsychHtmlButtonResponse,
+                    stimulus: "练习阶段结束，请决定是否再次练习",
+                    css_classes: "experiment-difficulty",
+                    choices: ["再次练习","进入实验"],
+                    button_html: '<button class="jspsych-btn">%choice%</button>',
+                    post_trial_gap: 500,
+                }
+            ],
+            conditional_function: function ( ) {
+                if (training_index > 3){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    ],
+    loop_function: function ( ) {
+        let data = jsPsych.data.get().last(1).values()[0];
+        if(data.response == 1){
+            return false;
+        } else {
+            if (training_index > 3){
+                training_index = 0;
+            }
+            return true;
+        }
+    }
+}
+
 // 5盘面的timeline，作为子时间线运行
 let timeline_5 = {
     timeline: [
@@ -215,9 +313,7 @@ let timeline_5 = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
-                // let reversed_list = original_list.reverse();
                 return original_list;
             },
             mode: 'wait',
@@ -233,7 +329,6 @@ let timeline_5 = {
             sequence: function () {
                 // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
-                // let reversed_list = original_list.reverse();
                 return original_list;
             },
             mode: 'input',
@@ -275,9 +370,7 @@ let timeline_6 = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
-                // let reversed_list = original_list.reverse();
                 return original_list;
             },
             mode: 'wait',
@@ -335,9 +428,7 @@ let timeline_7 = {
             display_height: display_height,
             display_width: display_width,
             sequence: function () {
-                // original_list = example_timeline.timeline[0].sequence; //写成这样有问题，获取到的是上面的函数了，不是数值，这里要传参了//需要获取timeline里上一个trial的参数
                 let original_list = [...local_sequence];
-                // let reversed_list = original_list.reverse();
                 return original_list;
             },
             mode: 'wait',
@@ -423,6 +514,6 @@ let ending = {
 
 /* jsPsych 运行*/
 jsPsych.run([
-    data_collect, instruction, timeline_control, ending
+    data_collect, instruction, timeline_5_training, timeline_control, ending
 ]);
 
